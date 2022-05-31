@@ -15,7 +15,8 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@boards/api": ["apps/api/src/index.ts"]
+			"@boards/api": ["apps/api/src/index.ts"],
+			"@boards/front": ["apps/front/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]
