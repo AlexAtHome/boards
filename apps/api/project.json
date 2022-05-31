@@ -1,0 +1,33 @@
+{
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/api/src",
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/apps/api",
+				"main": "apps/api/src/index.ts",
+				"tsConfig": "apps/api/tsconfig.lib.json",
+				"assets": ["apps/api/*.md"]
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["apps/api/**/*.ts"]
+			}
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["coverage/apps/api"],
+			"options": {
+				"jestConfig": "apps/api/jest.config.ts",
+				"passWithNoTests": true
+			}
+		}
+	},
+	"tags": ["app", "backend"]
+}
