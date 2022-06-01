@@ -5,8 +5,14 @@
 	"scripts": {
 		"start": "nx serve",
 		"build": "nx build",
-		"test": "nx test",
-		"dev": "nx run-many --target=dev --all"
+		"test": "exit 0",
+		"dev": "nx run-many --target=dev --all",
+		"prepare": "husky install",
+		"lint-staged": "lint-staged"
+	},
+	"lint-staged": {
+		"*.{ts,tsx,js}": ["eslint --fix", "prettier --write"],
+		"*.s?css": ["stylelint", "prettier --write"]
 	},
 	"private": true,
 	"dependencies": {
@@ -31,9 +37,11 @@
 		"eslint": "~8.12.0",
 		"eslint-config-prettier": "8.1.0",
 		"express": "^4.18.1",
+		"husky": "^8.0.1",
 		"jest": "27.5.1",
 		"nx": "14.1.9",
 		"prettier": "^2.5.1",
+		"pretty-quick": "^3.1.3",
 		"stylelint": "^14.8.5",
 		"stylelint-config-recommended-scss": "^6.0.0",
 		"ts-jest": "27.1.4",
