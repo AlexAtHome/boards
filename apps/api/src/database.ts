@@ -11,4 +11,5 @@ export const database = new DataSource({
 	logging: true,
 	appname: 'boards/api',
 	authSource: 'admin',
+	entities: ['model/*.js'],
 })
