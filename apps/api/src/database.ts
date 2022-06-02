@@ -8,9 +8,8 @@ export const database = new DataSource({
 	username: 'root',
 	password: 'example',
 	database: 'boards',
-	synchronize: true,
-	logging: true,
 	appname: 'boards/api',
 	authSource: 'admin',
 	entities: [Board],
+	ignoreUndefined: true,
 })
