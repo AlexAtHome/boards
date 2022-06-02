@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm'
+import { Board } from './model'
 
 export const database = new DataSource({
 	type: 'mongodb',
@@ -11,5 +12,5 @@ export const database = new DataSource({
 	logging: true,
 	appname: 'boards/api',
 	authSource: 'admin',
-	entities: ['model/*.js'],
+	entities: [Board],
 })

@@ -15,6 +15,10 @@ database
 	.initialize()
 	.then(() => {
 		console.log('MongoDB connection has been established')
+		return database.synchronize(false)
+	})
+	.then(() => {
+		console.log('Collections has been synchronised')
 		return app.listen(port, () => {
 			console.log(`API listening on port ${port}`)
 		})
