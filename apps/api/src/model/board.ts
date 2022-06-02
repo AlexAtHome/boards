@@ -1,7 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import { IBoard, IStatus, ITask } from './interface'
 
-@Entity()
+@Entity({
+	name: 'boards',
+})
 export class Board implements IBoard {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string

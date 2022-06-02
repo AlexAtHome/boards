@@ -17,3 +17,8 @@ export interface IStatus {
 	name: string
 	parentBoard: IBoard
 }
+
+export interface IListDTO<T = any> {
+	list: T[]
+	size: number
+}
