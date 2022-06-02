@@ -1,9 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-import { IBoard, IStatus, ITask } from './interface'
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { IBoard } from './interface'
 
-@Entity({
-	name: 'boards',
-})
+@Entity('boards')
 export class Board implements IBoard {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string
@@ -11,7 +9,9 @@ export class Board implements IBoard {
 	@Column()
 	name!: string
 
-	tasks!: ITask[]
+	@CreateDateColumn()
+	createdAt!: Date
 
-	statuses!: IStatus[]
+	@UpdateDateColumn()
+	updatedAt!: Date
 }

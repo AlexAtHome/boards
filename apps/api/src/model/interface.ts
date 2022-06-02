@@ -1,8 +1,8 @@
 export interface IBoard {
 	id: string
 	name: string
-	tasks: ITask[]
-	statuses: IStatus[]
+	createdAt: Date
+	updatedAt: Date
 }
 
 export interface ITask {
