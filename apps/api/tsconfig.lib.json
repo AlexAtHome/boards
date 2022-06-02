@@ -4,7 +4,9 @@
 		"outDir": "../../dist/out-tsc",
 		"declaration": true,
 		"types": [],
-		"rootDir": "./src"
+		"rootDir": "./src",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true
 	},
 	"include": ["src/**/*.ts"],
 	"exclude": ["jest.config.ts", "**/*.spec.ts"]
