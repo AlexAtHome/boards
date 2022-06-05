@@ -2,7 +2,7 @@ import { gql } from 'apollo-server'
 
 export const typeDefs = gql`
 	type Board {
-		id: ID
+		uuid: ID
 		name: String
 		createdAt: String
 		updatedAt: String
@@ -10,10 +10,12 @@ export const typeDefs = gql`
 
 	type Query {
 		boards: BoardListResponse!
+		board(uuid: ID): Board
 	}
 
 	type Mutation {
-		createBoard(name: String): Board
+		createBoard(name: String): Board!
+		editBoard(uuid: ID, name: String): Board!
 	}
 
 	type BoardListResponse {
