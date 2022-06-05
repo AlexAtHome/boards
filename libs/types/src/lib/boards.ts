@@ -21,3 +21,9 @@ export interface IStatus {
 }
 
 export type CreateBoardParams = Pick<IBoard, 'name'>
+
+export type EditBoardParams = Pick<IBoard, 'name'>
+
+export type DeleteBoardParams = {
+	id: string
+}
