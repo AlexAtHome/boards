@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"path": "apps/api",
+			"problemMatcher": ["$tsc", "$tsc-watch", "$eslint-stylish"],
+			"label": "npm: dev - apps/api",
+			"detail": "nx dev api",
+			"runOptions": {
+				"instanceLimit": 1
+			}
+		}
+	]
+}
