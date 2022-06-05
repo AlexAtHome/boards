@@ -1,6 +1,9 @@
 import * as express from 'express'
+
+import { IListDTO, IBoard } from '@boards/types'
+
 import { database } from '../database'
-import { Board, IBoard, IListDTO } from '../model'
+import { Board } from '../model'
 
 export const board = express()
 
