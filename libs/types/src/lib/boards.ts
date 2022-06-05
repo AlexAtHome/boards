@@ -1,5 +1,7 @@
+import { ObjectID } from 'typeorm'
+
 export interface IBoard {
-	id: string
+	id: string | ObjectID
 	name: string
 	createdAt: Date
 	updatedAt: Date
@@ -17,3 +19,5 @@ export interface IStatus {
 	name: string
 	parentBoard: IBoard
 }
+
+export type CreateBoardParams = Pick<IBoard, 'name'>
