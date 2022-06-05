@@ -1,15 +1,7 @@
 import 'reflect-metadata'
 
 import { database } from './database'
-import { port } from './const'
-import { app } from './app'
-import { endpoints } from './endpoints'
-
-app.get('/', (_, res) => {
-	res.send('Hello world!')
-})
-
-app.use('/v1', endpoints)
+import { startServer } from './app'
 
 database
 	.initialize()
@@ -19,11 +11,9 @@ database
 	})
 	.then(() => {
 		console.log('Collections has been synchronised')
-		return app.listen(port, () => {
-			console.log(`API listening on port ${port}`)
-		})
+		return startServer()
 	})
 	.catch(err => {
-		console.error('An error occured during connecting to MongoDB', err)
+		console.error('An error occured during the server start!', err)
 		process.exit(1)
 	})

@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm'
-import { Board } from './model'
+import { Board } from './models'
 
 export const database = new DataSource({
 	type: 'mongodb',
