@@ -1,10 +1,14 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, ObjectID, ObjectIdColumn } from 'typeorm'
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, ObjectIdColumn } from 'typeorm'
 import { IBoard } from '@boards/types'
+import { randomUUID } from 'crypto'
 
 @Entity('boards')
 export class Board implements IBoard {
 	@ObjectIdColumn()
-	id!: ObjectID
+	id!: string
+
+	@PrimaryGeneratedColumn('uuid')
+	uuid!: string
 
 	@Column()
 	name: string
@@ -17,5 +21,6 @@ export class Board implements IBoard {
 
 	constructor(name: string) {
 		this.name = name
+		this.uuid = randomUUID()
 	}
 }
