@@ -1,17 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, ObjectID, ObjectIdColumn } from 'typeorm'
 import { IBoard } from '@boards/types'
 
 @Entity('boards')
 export class Board implements IBoard {
-	@PrimaryGeneratedColumn('uuid')
-	id!: string
+	@ObjectIdColumn()
+	id!: ObjectID
 
 	@Column()
-	name!: string
+	name: string
 
 	@CreateDateColumn()
 	createdAt!: Date
 
 	@UpdateDateColumn()
 	updatedAt!: Date
+
+	constructor(name: string) {
+		this.name = name
+	}
 }
