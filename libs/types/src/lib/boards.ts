@@ -1,7 +1,5 @@
-import { ObjectID } from 'typeorm'
-
 export interface IBoard {
-	id: string | ObjectID
+	uuid: string
 	name: string
 	createdAt: Date
 	updatedAt: Date
