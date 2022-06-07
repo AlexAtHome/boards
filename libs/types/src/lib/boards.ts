@@ -7,7 +7,7 @@ export interface IBoard {
 
 export interface ITask {
 	uuid: string
-	name: string
+	title: string
 	description: string
 	status: IStatus
 }
