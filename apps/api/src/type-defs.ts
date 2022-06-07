@@ -38,22 +38,22 @@ export const typeDefs = gql`
 
 	type Task {
 		uuid: ID!
-		name: String
+		title: String
 		description: String
 	}
 
 	input CreateTaskInput {
-		name: String!
+		title: String!
 		description: String
 	}
 
 	input EditTaskInput {
-		name: String
+		title: String
 		description: String
 	}
 
 	input DeleteTaskInput {
-		name: String
+		title: String
 		description: String
 	}
 `
