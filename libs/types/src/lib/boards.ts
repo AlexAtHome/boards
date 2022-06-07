@@ -8,8 +8,8 @@ export interface IBoard {
 export interface ITask {
 	uuid: string
 	title: string
-	description: string
-	status: IStatus
+	description?: string
+	status?: IStatus
 }
 
 export interface IStatus {
@@ -25,3 +25,7 @@ export type EditBoardParams = Pick<IBoard, 'name'>
 export type DeleteBoardParams = {
 	id: string
 }
+
+export type CreateTaskParams = Pick<ITask, 'title'> & Pick<ITask, 'description'>
+
+export type EditTaskParams = Pick<ITask, 'title' | 'description'>
