@@ -6,14 +6,14 @@ export interface IBoard {
 }
 
 export interface ITask {
-	id: string
+	uuid: string
 	name: string
 	description: string
 	status: IStatus
 }
 
 export interface IStatus {
-	id: string
+	uuid: string
 	name: string
 	parentBoard: IBoard
 }
