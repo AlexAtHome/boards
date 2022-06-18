@@ -1,40 +1,23 @@
 import { CreateBoardParams, EditBoardParams, IBoard, IListDTO } from '@boards/types'
-import { database } from '../database'
 import { Board } from '../models'
+import { Provider } from '../utils/provider'
 
 export class BoardService {
-	private static repo = database.getMongoRepository(Board)
+	private static provider = new Provider(Board)
 
 	static async getList(): Promise<IListDTO<IBoard>> {
-		const list = await this.repo.find()
-		return {
-			list,
-			size: list.length,
-		}
+		return this.provider.getMany()
 	}
 
 	static async getById(uuid: string): Promise<IBoard | null> {
-		const item = await this.repo.findOneBy({ uuid })
-		return item
+		return this.provider.getOneBy({ uuid })
 	}
 
-	static async create(params: CreateBoardParams): Promise<IBoard> {
-		const item = this.repo.create(params)
-		return this.repo.save(item)
+	static async create(input: CreateBoardParams): Promise<IBoard> {
+		return this.provider.createOne(input)
 	}
 
-	static async edit(uuid: string, params: EditBoardParams): Promise<IBoard> {
-		console.log({ uuid, params })
-		const result = await this.repo.findOneAndUpdate(
-			{ uuid },
-			{ $set: { ...params } },
-			{
-				upsert: false,
-			}
-		)
-		if (result.ok === 1) {
-			return (await this.getById(uuid)) as Board
-		}
-		throw new Error('something is horribly wrong')
+	static async edit(uuid: string, input: EditBoardParams): Promise<IBoard> {
+		return this.provider.editOne({ uuid }, { ...input })
 	}
 }
