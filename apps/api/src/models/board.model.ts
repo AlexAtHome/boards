@@ -4,6 +4,7 @@ import { randomUUID } from 'crypto'
 
 @Entity('boards')
 export class Board implements IBoard {
+	// TODO: Either make use of Board.id or get rid of it in favour of Board.uuid
 	@ObjectIdColumn()
 	id!: string
 
