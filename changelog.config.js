@@ -38,6 +38,11 @@ const commitTypes = [
 		emoji: '🧁',
 		value: 'style',
 	},
+	{
+		description: 'A comment in the code or any other piece of documentation',
+		emoji: '📗 ',
+		value: 'docs'
+	}
 ]
 
 const types = {}
