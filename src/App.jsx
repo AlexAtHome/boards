@@ -1,5 +1,6 @@
 import Footer from './components/footer'
 import Header from './components/header'
+import TaskList from './components/task-list'
 
 function App() {
 	return (
@@ -7,8 +8,7 @@ function App() {
 			<Header />
 
 			<main className="mb-auto p-3">
-				<h1 className="text-3xl">the main area is here</h1>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, sequi est vero cum numquam dignissimos esse accusantium nesciunt amet cumque. Voluptates fuga voluptatum fugit ad laudantium quis omnis iusto natus.</p>
+				<TaskList />
 			</main>
 
 			<Footer />
