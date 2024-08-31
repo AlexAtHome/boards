@@ -7,6 +7,11 @@ import { createSlice } from '@reduxjs/toolkit'
  * @prop {boolean} isDone
  */
 
+/**
+ * @template P
+ * @typedef {import('@reduxjs/toolkit').PayloadAction<P>} PayloadAction
+ */
+
 /** @type {Task[]} */
 const initialState = [
 	{ uuid: '122b6038-5487-4c92-a30e-2c21357d042b', title: 'Buy groceries', isDone: false },
@@ -19,7 +24,7 @@ const taskListReducer = createSlice({
 	reducers: {
 		/**
 		 * @param {Task[]} state
-		 * @param {import('@reduxjs/toolkit').PayloadAction<string>} action
+		 * @param {PayloadAction<string>} action
 		 */
 		taskAdded(state, action) {
 			state.push({
@@ -27,10 +32,18 @@ const taskListReducer = createSlice({
 				title: action.payload,
 				isDone: false
 			})
+		},
+		/**
+		 * @param {Task[]} state
+		 * @param {PayloadAction<string>} action
+		 */
+		taskMarkedAsDone(state, action) {
+			const i = state.findIndex(task => task.uuid === action.payload)
+			state[i].isDone = !state[i].isDone
 		}
 	}
 })
 
-export const { taskAdded } = taskListReducer.actions
+export const { taskAdded, taskMarkedAsDone } = taskListReducer.actions
 
 export default taskListReducer.reducer
