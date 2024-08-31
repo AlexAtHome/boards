@@ -16,7 +16,21 @@ const initialState = [
 const taskListReducer = createSlice({
 	name: 'task-list',
 	initialState,
-	reducers: {}
+	reducers: {
+		/**
+		 * @param {Task[]} state
+		 * @param {import('@reduxjs/toolkit').PayloadAction<string>} action
+		 */
+		taskAdded(state, action) {
+			state.push({
+				uuid: crypto.randomUUID(),
+				title: action.payload,
+				isDone: false
+			})
+		}
+	}
 })
+
+export const { taskAdded } = taskListReducer.actions
 
 export default taskListReducer.reducer

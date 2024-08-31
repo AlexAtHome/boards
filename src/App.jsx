@@ -2,10 +2,14 @@ import CreateTaskForm from './components/create-task-form'
 import Footer from './components/footer'
 import Header from './components/header'
 import TaskList from './components/task-list'
+import { taskAdded } from './features/task-list'
+import { useAppDispatch } from './hooks'
 
 function App() {
+	const dispatch = useAppDispatch()
+
 	function createTask(title) {
-		alert(title)
+		dispatch(taskAdded(title))
 	}
 
 	return (
