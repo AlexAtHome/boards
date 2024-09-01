@@ -5,10 +5,17 @@ import { store } from './store.js'
 import App from './App.jsx'
 import './index.css'
 
-createRoot(document.getElementById('root')).render(
-	<StrictMode>
-		<Provider store={store}>
-			<App />
-		</Provider>
-	</StrictMode>,
-)
+import { Database } from './features/database'
+
+(async function() {
+	await Database.open()
+
+	createRoot(document.getElementById('root')).render(
+		<StrictMode>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</StrictMode>,
+	)
+})()
+
