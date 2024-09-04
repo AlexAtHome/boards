@@ -58,6 +58,51 @@ export class Database {
 		return this.#stores.get(storeName);
 	}
 
+	/**
+	 * @param {StoreName | StoreName[]} name - Name of the store
+	 * @param {IDBTransactionMode} mode
+	 */
+	static createTransaction(name, mode) {
+		return this.#db.transaction(name, mode)
+	}
+
+	/**
+	 * @param {StoreName} storeName
+	 */
+	static getAllFrom(storeName) {
+		return new Promise((resolve, reject) => {
+			const transaction = Database.createTransaction(storeName, 'readonly')
+			const store = transaction.objectStore(storeName)
+			const req = store.getAll()
+			req.onsuccess = () => {
+				resolve(req.result)
+			}
+			req.onerror = () => {
+				reject(new Error('Unable to get the data'))
+			}
+		})
+	}
+
+	/**
+	 * TODO: Figure out the dynamic typing for data
+	 *
+	 * @param {StoreName} storeName
+	 * @param {Task} data
+	 */
+	static addTo(storeName, data) {
+		return new Promise((resolve, reject) => {
+			const transaction = Database.createTransaction(storeName, 'readwrite')
+			const store = transaction.objectStore(storeName)
+			const req = store.add(data)
+			req.onsuccess = () => {
+				resolve(req.result)
+			}
+			req.onerror = () => {
+				reject(new Error('Unable to get the data'))
+			}
+		})
+	}
+
 	static #populate() {
 		const tasksStore = this.#db.createObjectStore('tasks', { keyPath: 'id' })
 		tasksStore.createIndex("title", "title", { unique: false })

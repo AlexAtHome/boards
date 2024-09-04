@@ -1,18 +1,11 @@
-import PropTypes from 'prop-types'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
+import { postTask } from '../features/task-list'
+import { useAppDispatch } from '../hooks.js'
 
-/**
- * @typedef CreateTaskFormProps
- * @prop {(taskName: string) => void} onSubmit
- */
-
-/** @param {CreateTaskFormProps} props */
-const CreateTaskForm = (props) => {
-	if (typeof props.onSubmit === 'undefined') {
-		throw new Error('no onSubmit event')
-	}
+const CreateTaskForm = () => {
 	const inputId = 'task-name'
+	const dispatch = useAppDispatch();
 
 	const [title, setTitle] = useState('')
 
@@ -22,7 +15,7 @@ const CreateTaskForm = (props) => {
 		if (!title) {
 			return
 		}
-		props.onSubmit(title)
+		dispatch(postTask(title))
 		setTitle('')
 	}
 
@@ -41,10 +34,6 @@ const CreateTaskForm = (props) => {
 			</button>
 		</div>
 	</form>
-}
-
-CreateTaskForm.propTypes = {
-	onSubmit: PropTypes.func.isRequired
 }
 
 export default CreateTaskForm

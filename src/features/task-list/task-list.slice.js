@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid'
+import { Database } from '../database'
 
 /**
  * @typedef Task
@@ -9,42 +10,84 @@ import { nanoid } from 'nanoid'
  */
 
 /**
+ * @template Type
+ * @typedef AsyncDTO
+ * @prop {'idle' | 'pending' | 'success' | 'error'} status
+ * @prop {string | null} error
+ * @prop {Type} data
+ */
+
+/**
  * @template P
  * @typedef {import('@reduxjs/toolkit').PayloadAction<P>} PayloadAction
  */
 
-/** @type {Task[]} */
-const initialState = [
-	{ id: '122b6038-5487-4c92-a30e-2c21357d042b', title: 'Buy groceries', isDone: false },
-	{ id: '59152986-cd4d-48a8-9c62-30314c4ef693', title: 'Make the best todo app out there', isDone: false },
-]
+/**
+ * @typedef {AsyncDTO<Task[]>} AsyncTaskList
+ */
+
+/** @type {AsyncTaskList} */
+const initialState = {
+	status: 'idle',
+	error: null,
+	data: []
+}
+
+export const fetchTasks = createAsyncThunk('task-list/fetch', async () => {
+	return Database.getAllFrom('tasks')
+}, {
+	condition(_, api) {
+		const status = selectTasksStatus(api.getState())
+		if (status !== 'idle') {
+			return false
+		}
+	}
+})
+
+export const postTask = createAsyncThunk('task-list/post', async (title) => {
+	const task = {
+		id: nanoid(),
+		title,
+		isDone: false
+	}
+	await Database.addTo('tasks', task)
+	return task
+})
 
 const taskListReducer = createSlice({
 	name: 'task-list',
 	initialState,
 	reducers: {
 		/**
-		 * @param {Task[]} state
-		 * @param {PayloadAction<string>} action
-		 */
-		taskAdded(state, action) {
-			state.push({
-				id: nanoid(),
-				title: action.payload,
-				isDone: false
-			})
-		},
-		/**
-		 * @param {Task[]} state
+		 * @param {AsyncTaskList} state
 		 * @param {PayloadAction<string>} action
 		 */
 		taskMarkedAsDone(state, action) {
-			const i = state.findIndex(task => task.id === action.payload)
-			state[i].isDone = !state[i].isDone
+			const i = state.data.findIndex(task => task.id === action.payload)
+			state.data[i].isDone = !state.data[i].isDone
 		}
-	}
+	},
+	extraReducers: builder => builder
+		.addCase(fetchTasks.pending, (state) => {
+			state.status = 'pending'
+		})
+		.addCase(fetchTasks.fulfilled, (state, action) => {
+			state.status = 'success'
+			state.data.push(...action.payload)
+		})
+		.addCase(fetchTasks.rejected, (state, action) => {
+			state.status = 'error'
+			state.error = action.error.message ?? 'Unknown Error'
+		})
+		.addCase(postTask.fulfilled, (state, action) => {
+			state.data.push(action.payload)
+		})
 })
 
-export const { taskAdded, taskMarkedAsDone } = taskListReducer.actions
+export const { taskMarkedAsDone } = taskListReducer.actions
 
 export default taskListReducer.reducer
+
+export const selectAllTasks = state => state.taskList.data
+export const selectTasksStatus = state => state.taskList.status
+export const selectTasksError = state => state.taskList.error
