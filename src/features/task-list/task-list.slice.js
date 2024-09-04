@@ -54,19 +54,15 @@ export const postTask = createAsyncThunk('task-list/post', async (title) => {
 	return task
 })
 
+export const markTaskAsDone = createAsyncThunk('task-list/mark-as-done', async (task) => {
+	const { id, ...data } = task
+	await Database.put('tasks', id, { ...data, isDone: true })
+	return { ...task, isDone: true }
+})
+
 const taskListReducer = createSlice({
 	name: 'task-list',
 	initialState,
-	reducers: {
-		/**
-		 * @param {AsyncTaskList} state
-		 * @param {PayloadAction<string>} action
-		 */
-		taskMarkedAsDone(state, action) {
-			const i = state.data.findIndex(task => task.id === action.payload)
-			state.data[i].isDone = !state.data[i].isDone
-		}
-	},
 	extraReducers: builder => builder
 		.addCase(fetchTasks.pending, (state) => {
 			state.status = 'pending'
@@ -82,9 +78,11 @@ const taskListReducer = createSlice({
 		.addCase(postTask.fulfilled, (state, action) => {
 			state.data.push(action.payload)
 		})
+		.addCase(markTaskAsDone.fulfilled, (state, action) => {
+			const i = state.data.findIndex(task => task.id === action.payload.id)
+			state.data[i].isDone = !state.data[i].isDone
+		})
 })
-
-export const { taskMarkedAsDone } = taskListReducer.actions
 
 export default taskListReducer.reducer
 

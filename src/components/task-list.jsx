@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useAppSelector } from "../hooks"
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 import { useAppDispatch } from '../hooks'
-import { taskMarkedAsDone, selectAllTasks, selectTasksStatus, selectTasksError } from '../features/task-list';
+import { selectAllTasks, selectTasksStatus, selectTasksError, markTaskAsDone } from '../features/task-list';
 
 const TaskList = () => {
 	const dispatch = useAppDispatch()
@@ -15,7 +15,7 @@ const TaskList = () => {
 		{status === 'idle' && <div>About to start loading...</div>}
 		{status === 'pending' && <div>Loading...</div>}
 		{status === 'success' && <ul className="flex flex-col gap-2 my-4">{
-			taskList.map((task) => <TaskItem onMarkAsDone={task => dispatch(taskMarkedAsDone(task.id))} key={task.id} {...task} />)
+			taskList.map((task) => <TaskItem onMarkAsDone={() => dispatch(markTaskAsDone(task))} key={task.id} {...task} />)
 		}</ul>}
 		{status === 'error' && <div>An error occured: {error}</div>}
 	</div>

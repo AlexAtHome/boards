@@ -10,6 +10,7 @@ class BlockedError extends Error {
 
 /**
  * @typedef {'tasks'} StoreName
+ * @typedef {import('../task-list/task-list.slice.js').Task} Task
  */
 
 export class Database {
@@ -94,6 +95,30 @@ export class Database {
 			const transaction = Database.createTransaction(storeName, 'readwrite')
 			const store = transaction.objectStore(storeName)
 			const req = store.add(data)
+			req.onsuccess = () => {
+				resolve(req.result)
+			}
+			req.onerror = () => {
+				reject(new Error('Unable to get the data'))
+			}
+		})
+	}
+
+	/**
+	 * TODO: Figure out the dynamic typing for data
+	 *
+	 * @param {StoreName} storeName
+	 * @param {Task['id']} id
+	 * @param {Omit<Task, 'id'>} data
+	 */
+	static put(storeName, id, data) {
+		return new Promise((resolve, reject) => {
+			const transaction = Database.createTransaction(storeName, 'readwrite')
+			const store = transaction.objectStore(storeName)
+			const req = store.put({
+				id,
+				...data
+			})
 			req.onsuccess = () => {
 				resolve(req.result)
 			}
