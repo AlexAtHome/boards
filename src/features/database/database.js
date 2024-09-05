@@ -131,7 +131,7 @@ export class Database {
 	static #populate() {
 		const tasksStore = this.#db.createObjectStore('tasks', { keyPath: 'id' })
 		tasksStore.createIndex("title", "title", { unique: false })
-		tasksStore.createIndex("done", "isDone", { unique: false })
+		tasksStore.createIndex("isDone", "isDone", { unique: false })
 		this.#stores.set('tasks', tasksStore)
 	}
 }

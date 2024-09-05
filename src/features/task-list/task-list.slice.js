@@ -7,6 +7,8 @@ import { Database } from '../database'
  * @prop {string} id
  * @prop {string} title
  * @prop {boolean} isDone
+ * @prop {Date} createdAt
+ * @prop {Date} modifiedAt
  */
 
 /**
@@ -45,10 +47,14 @@ export const fetchTasks = createAsyncThunk('task-list/fetch', async () => {
 })
 
 export const postTask = createAsyncThunk('task-list/post', async (title) => {
+	const createdAt = new Date()
+	/** @type {Task} */
 	const task = {
 		id: nanoid(),
 		title,
-		isDone: false
+		isDone: false,
+		createdAt,
+		modifiedAt: createdAt
 	}
 	await Database.addTo('tasks', task)
 	return task
@@ -56,8 +62,9 @@ export const postTask = createAsyncThunk('task-list/post', async (title) => {
 
 export const markTaskAsDone = createAsyncThunk('task-list/mark-as-done', async (task) => {
 	const { id, ...data } = task
-	await Database.put('tasks', id, { ...data, isDone: true })
-	return { ...task, isDone: true }
+	const modifiedAt = new Date()
+	await Database.put('tasks', id, { ...data, isDone: true, modifiedAt })
+	return { ...task, isDone: true, modifiedAt }
 })
 
 const taskListReducer = createSlice({

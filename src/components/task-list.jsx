@@ -24,7 +24,6 @@ const TaskList = () => {
 /**
  * @typedef {import('../features/task-list').Task} Task
  * @typedef {Task & { onMarkAsDone: (task: Task) => void }} TaskProps
- *
  */
 
 /** @param {TaskProps} task */
