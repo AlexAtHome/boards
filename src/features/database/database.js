@@ -128,6 +128,19 @@ export class Database {
 		})
 	}
 
+	static purge() {
+		return new Promise((resolve, reject) => {
+			this.#db.close()
+			const req = indexedDB.deleteDatabase('boards-store')
+			req.addEventListener('success', () => {
+				resolve(true)
+			}, { once: true })
+			req.addEventListener('error', () => {
+				reject(false)
+			}, { once: true })
+		})
+	}
+
 	static #populate() {
 		const tasksStore = this.#db.createObjectStore('tasks', { keyPath: 'id' })
 		tasksStore.createIndex("title", "title", { unique: false })

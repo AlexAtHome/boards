@@ -11,6 +11,7 @@ import { Database } from './features/database'
 import { RootPage } from "./pages/root";
 import { TaskPage } from "./pages/task.page";
 import PrivacyPolicyPage from './pages/privacy-policy.page.jsx';
+import SettingsPage from './pages/settings.page.jsx';
 
 (async function() {
 	await Database.open()
@@ -28,6 +29,10 @@ import PrivacyPolicyPage from './pages/privacy-policy.page.jsx';
 				{
 					path: '/privacy-policy',
 					element: <PrivacyPolicyPage />
+				},
+				{
+					path: '/settings',
+					element: <SettingsPage />
 				}
 			]
 		},

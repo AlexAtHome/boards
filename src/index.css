@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	h1 {
+		@apply text-3xl mb-6;
+	}
+
+	h2 {
+		@apply text-2xl mb-3;
+	}
+
+	p {
+		@apply my-2;
+	}
+
+	.link {
+		@apply text-blue-400 underline underline-offset-4 hover:text-blue-300;
+	}
+}
