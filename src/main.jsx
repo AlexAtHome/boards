@@ -10,6 +10,7 @@ import './index.css'
 import { Database } from './features/database'
 import { RootPage } from "./pages/root";
 import { TaskPage } from "./pages/task.page";
+import PrivacyPolicyPage from './pages/privacy-policy.page.jsx';
 
 (async function() {
 	await Database.open()
@@ -23,6 +24,10 @@ import { TaskPage } from "./pages/task.page";
 				{
 					path: '/',
 					element: <TaskPage />
+				},
+				{
+					path: '/privacy-policy',
+					element: <PrivacyPolicyPage />
 				}
 			]
 		},
