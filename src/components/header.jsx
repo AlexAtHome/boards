@@ -1,7 +1,7 @@
-import reactLogo from '../assets/react.svg'
+import logo from '../../public/vite.svg'
 
 const Logo = () => <a href="/" className="inline-flex gap-2 items-center text-2xl" aria-label="The Boards logo">
-	<img src={reactLogo} alt="" role="presentation" />
+	<img src={logo} alt="" role="presentation" />
 	<span>Boards</span>
 </a>
 
