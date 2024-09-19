@@ -10,7 +10,7 @@ class BlockedError extends Error {
 
 /**
  * @typedef {'tasks'} StoreName
- * @typedef {import('../task-list/task-list.slice.js').Task} Task
+ * @typedef {import('../task-list/task-list.js').Task} Task
  */
 
 export class Database {
