@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import PropTypes from 'prop-types'
 import { useAppSelector } from "../hooks"
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
-import { formatDistance, format } from 'date-fns'
+import { format } from 'date-fns'
 import { useAppDispatch } from '../hooks'
 import { selectAllTasks, selectTasksStatus, selectTasksError, markTaskAsDone } from '../features/task-list';
 
