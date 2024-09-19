@@ -98,8 +98,9 @@ export class Database {
 			req.onsuccess = () => {
 				resolve(req.result)
 			}
-			req.onerror = () => {
-				reject(new Error('Unable to get the data'))
+			req.onerror = (err) => {
+				console.error(err)
+				reject(new Error('Unable to put the data'))
 			}
 		})
 	}

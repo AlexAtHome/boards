@@ -4,6 +4,7 @@ import { Database } from '../database'
  * @typedef Task
  * @prop {string} id
  * @prop {string} title
+ * @prop {string} [description]
  * @prop {boolean} isDone
  * @prop {Date} createdAt
  * @prop {Date} modifiedAt

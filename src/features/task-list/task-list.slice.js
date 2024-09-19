@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, createSerializableStateInvariantMiddleware, isPlain } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid'
 import { Database } from '../database'
 import { deserializeTask, getAllTasks, serializeTask } from './task-list'
@@ -42,12 +42,13 @@ export const fetchTasks = createAsyncThunk('task-list/fetch', async () => {
 	}
 })
 
-export const postTask = createAsyncThunk('task-list/post', async (title) => {
+export const postTask = createAsyncThunk('task-list/post', async ({ title, description }) => {
 	const createdAt = new Date()
 	/** @type {Task} */
 	const task = {
 		id: nanoid(),
 		title,
+		description,
 		isDone: false,
 		createdAt,
 		modifiedAt: createdAt
@@ -82,6 +83,9 @@ const taskListReducer = createSlice({
 		.addCase(postTask.fulfilled, (state, action) => {
 			state.data.push(action.payload)
 		})
+		.addCase(postTask.rejected, (_, action) => {
+			console.error(action.error)
+		})
 		.addCase(markTaskAsDone.fulfilled, (state, action) => {
 			const i = state.data.findIndex(task => task.id === action.payload.id)
 			state.data[i].isDone = !state.data[i].isDone
@@ -93,19 +97,3 @@ export default taskListReducer.reducer
 export const selectAllTasks = state => state.taskList.data
 export const selectTasksStatus = state => state.taskList.status
 export const selectTasksError = state => state.taskList.error
-
-export const serialisableMiddleware = createSerializableStateInvariantMiddleware({
-	isSerializable: value => isPlain(value) || value instanceof Date,
-	getEntries: value => Array.isArray(value) ? value.entries() : Object.entries(value)
-})
-
-/** @type {import('@reduxjs/toolkit').Middleware} */
-export const taskListDatesMiddleware = ({ getState }) => {
-	return next => action => {
-		if (action)
-			console.log('will dispatch', action)
-		const returnValue = next(action)
-		console.log('state after dispatch', getState())
-		return returnValue
-	}
-}
