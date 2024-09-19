@@ -28,7 +28,14 @@ const CreateTaskForm = () => {
 		setText('')
 	}
 
-	return <form onSubmit={e => createTask(e)}>
+	/** @param {KeyboardEvent} e */
+	const submitByKeyboard = e => {
+		if (e.key === "Enter" && !e.shiftKey) {
+			createTask(e)
+		}
+	}
+
+	return <form onSubmit={e => createTask(e)} onKeyDown={e => submitByKeyboard(e)}>
 		<label htmlFor={inputId}>Enter the task title</label>
 		<div className="flex gap-2 w-full items-start relative mt-2" role="presentation">
 			<div role="presentation" className="inline-flex flex-grow relative">
@@ -37,6 +44,9 @@ const CreateTaskForm = () => {
 			<button type="submit" title="Add task" disabled={!text.trim()} className="top-2 bottom-2 right-2 w-10 inline-flex justify-center items-center focus:outline outline-2 outline-green-600 dark:outline-green-300 outline-offset-2 rounded-md disabled:cursor-not-allowed disabled:opacity-50">
 				<CheckCircleIcon role="presentation" className="w-8" />
 			</button>
+		</div>
+		<div className="mt-2 hidden md:block text-xs transition-opacity" aria-label="Hotkey tip">
+			<p>Press <kbd>Enter</kbd> to create a task. Press <kbd><kbd>Shift</kbd>+<kbd>Enter</kbd></kbd> to add a description.</p>
 		</div>
 	</form>
 }
