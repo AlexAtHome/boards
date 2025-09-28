@@ -10,23 +10,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/react": "^2.1.5",
-    "@reduxjs/toolkit": "^2.2.7",
+    "@heroicons/react": "2.2.0",
+    "@reduxjs/toolkit": "2.9.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "nanoid": "^5.0.7",
     "prop-types": "^15.8.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-redux": "^9.1.2",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "react-redux": "9.2.0",
     "react-router-dom": "^6.26.1"
   },
   "devDependencies": {
     "@csstools/postcss-oklab-function": "^4.0.2",
     "@eslint/js": "^9.9.0",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
+    "@types/react": "^19.1.15",
+    "@types/react-dom": "19.1.9",
+    "@vitejs/plugin-react-swc": "^4.1.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.9.0",
     "eslint-plugin-react": "^7.35.0",
@@ -35,7 +35,7 @@
     "globals": "^15.9.0",
     "postcss": "^8.4.41",
     "tailwindcss": "^3.4.10",
-    "vite": "^5.4.1",
-    "vite-plugin-pwa": "^0.20.5"
+    "vite": "^7.1.7",
+    "vite-plugin-pwa": "^1.0.3"
   }
 }
